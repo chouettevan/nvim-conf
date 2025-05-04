@@ -19,8 +19,13 @@ require("lazy").setup({
   {
       "nvim-telescope/telescope.nvim",branch = '0.1.x',
       dependencies = {'nvim-lua/plenary.nvim'}
+  },
+  {
+      "williamboman/mason.nvim"
   }
+
 }) 
+require('mason').setup()
 
 vim.g.mapleader = " "
 vim.keymap.set("n","<leader>e",vim.cmd.Ex)
