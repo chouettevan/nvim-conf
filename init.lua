@@ -21,11 +21,12 @@ require("lazy").setup({
       dependencies = {'nvim-lua/plenary.nvim'}
   },
   {
-      "williamboman/mason.nvim"
+      "williamboman/mason.nvim",
   }
-
 }) 
 require('mason').setup()
+
+
 
 vim.g.mapleader = " "
 vim.keymap.set("n","<leader>e",vim.cmd.Ex)
