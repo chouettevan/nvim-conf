@@ -8,6 +8,7 @@ local function start_texlab()
             vim.cmd(cmd)
             vim.cmd(':' .. tostring(line_num+1) .. 's/begin/end/')
             vim.fn.cursor(line_num,col_num)
+            vim.cmd(':noh')
         end)
         vim.lsp.start({
                 name = 'texlab',
