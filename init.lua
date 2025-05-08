@@ -33,6 +33,7 @@ vim.keymap.set("n","<leader>e",vim.cmd.Ex)
 vim.cmd("so ~/.config/nvim/config/init.lua")
 
 
+vim.keymap.set('n','<leader>w','<C-w>')
 vim.keymap.set({ "n", "v" }, "cy", [["+y]])
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -65,67 +66,67 @@ vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 local function tab_complete()
-  local c = vim.fn.col('.') - 1
-  local is_whitespace = c == 0 or vim.fn.getline('.'):sub(c, c):match('%s')
+local c = vim.fn.col('.') - 1
+local is_whitespace = c == 0 or vim.fn.getline('.'):sub(c, c):match('%s')
 
-  if is_whitespace then
-    -- insert tab
-    return '<Tab>'
-  end
+if is_whitespace then
+  -- insert tab
+  return '<Tab>'
+end
 
-  local lsp_completion = vim.bo.omnifunc == 'v:lua.vim.lsp.omnifunc'
+local lsp_completion = vim.bo.omnifunc == 'v:lua.vim.lsp.omnifunc'
 
-  if lsp_completion then
-    -- trigger lsp code completion
-    return '<C-x><C-o>'
-  end
+if lsp_completion then
+  -- trigger lsp code completion
+  return '<C-x><C-o>'
+end
 
-  -- suggest words in current buffer
-  return '<C-x><C-n>'
+-- suggest words in current buffer
+return '<C-x><C-n>'
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
-  callback = function(event)
-    local bufmap = function(mode, lhs, rhs)
-      local opts = {buffer = event.buf}
-      vim.keymap.set(mode, lhs, rhs, opts)
-    end
-
-    -- You can find details of these function in the help page
-    -- see for example, :help vim.lsp.buf.hover()
-
-    -- Trigger code completion
-    vim.keymap.set('i', '<Tab>', tab_complete,{expr = true,buffer = event.buf})
-
-    -- Display documentation of the symbol under the cursor
-    bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-
-    -- Jump to the definition
-    bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-
-    -- Jump to declaration
-    bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-
-    -- Lists all the implementations for the symbol under the cursor
-    bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-
-    -- Jumps to the definition of the type symbol
-    bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-
-    -- Lists all the references 
-    bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-
-    -- Displays a function's signature information
-    bufmap('n', 'ck', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-
-    -- Renames all references to the symbol under the cursor
-    bufmap('n', 'sf', '<cmd>lua vim.lsp.buf.rename()<cr>')
-
-    -- Format current file
-    bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format()<cr>')
-
-    -- Selects a code action available at the current cursor position
-    bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+desc = 'LSP actions',
+callback = function(event)
+  local bufmap = function(mode, lhs, rhs)
+    local opts = {buffer = event.buf}
+    vim.keymap.set(mode, lhs, rhs, opts)
   end
+
+  -- You can find details of these function in the help page
+  -- see for example, :help vim.lsp.buf.hover()
+
+  -- Trigger code completion
+  vim.keymap.set('i', '<Tab>', tab_complete,{expr = true,buffer = event.buf})
+
+  -- Display documentation of the symbol under the cursor
+  bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+
+  -- Jump to the definition
+  bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+
+  -- Jump to declaration
+  bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+
+  -- Lists all the implementations for the symbol under the cursor
+  bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+
+  -- Jumps to the definition of the type symbol
+  bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+
+  -- Lists all the references 
+  bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+
+  -- Displays a function's signature information
+  bufmap('n', 'ck', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+
+  -- Renames all references to the symbol under the cursor
+  bufmap('n', 'sf', '<cmd>lua vim.lsp.buf.rename()<cr>')
+
+  -- Format current file
+  bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format()<cr>')
+
+  -- Selects a code action available at the current cursor position
+  bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+end
 })
