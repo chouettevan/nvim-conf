@@ -33,7 +33,7 @@ vim.keymap.set("n","<leader>e",vim.cmd.Ex)
 vim.cmd("so ~/.config/nvim/config/init.lua")
 
 
-vim.keymap.set('n','<leader>w','<C-w>')
+vim.keymap.set('n','w','<C-w>')
 vim.keymap.set({ "n", "v" }, "cy", [["+y]])
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
