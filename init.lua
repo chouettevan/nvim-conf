@@ -40,6 +40,7 @@ vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('n', '<leader>o', ':edit ')
 
 vim.opt.scrolloff = 8
+vim.opt.hlsearch = false
 
 -- you can add this in your init.lua
 -- (note: diagnostics are not exclusive to LSP)
