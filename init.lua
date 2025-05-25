@@ -30,7 +30,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.cmd("so ~/.config/nvim/config/init.lua")
 
-
+vim.keymap.set('n', '<leader>x', ':!chmod +x %')
+vim.keymap.set('n', '<leader>s', ':terminal ./%')
 vim.keymap.set('n', '<leader>w', '<C-w>')
 vim.keymap.set({ "n", "v" }, "cy", [["+y]])
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
