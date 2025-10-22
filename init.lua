@@ -21,10 +21,12 @@ require("lazy").setup({
   },
   {
     "williamboman/mason.nvim",
-  }
+  },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 })
 require('mason').setup()
-
+require('catppuccin').setup({transparent_background=true})
+vim.cmd("colorscheme catppuccin")
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
@@ -55,7 +57,7 @@ vim.opt.expandtab = true
 
 vim.opt.guicursor = "a:ver5i"
 vim.cmd("highlight Normal guibg=none")
-vim.cmd("colorscheme habamax")
+--#vim.cmd("colorscheme habamax")
 -- Show diagnostics in a floating window
 vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
 
