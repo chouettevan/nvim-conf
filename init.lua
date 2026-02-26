@@ -14,6 +14,27 @@ vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 require("lazy").setup({
   "folke/which-key.nvim",
   { "folke/neoconf.nvim", cmd = "Neoconf" },
+	{
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+      { -- optional cmp completion source for require statements and module
+        "hrsh7th/nvim-cmp",
+        opts = function(_, opts)
+          opts.sources = opts.sources or {}
+          table.insert(opts.sources, {
+            name = "lazydev",
+            group_index = 0, -- set group index to 0 to skip loading LuaLS
+          })
+        end,
+      },
   {
     "nvim-telescope/telescope.nvim",
     branch = '0.1.x',
@@ -27,13 +48,15 @@ require("lazy").setup({
 require('mason').setup()
 require('catppuccin').setup({transparent_background=true})
 vim.cmd("colorscheme catppuccin")
-
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.cmd("so ~/.config/nvim/config/init.lua")
 
 vim.keymap.set('n', '<leader>x', ':!chmod +x % <CR>')
 vim.keymap.set('n', '<leader>s', ':terminal ./% <CR>')
+vim.keymap.set('n','<leader>wf',':! cat % | wc -w <CR>')
+vim.keymap.set('n','<leader>l','/\\.<CR>')
+vim.keymap.set('n','<leader>wc',':! xclip -selection clipboard -o | wc -w <CR>')
 vim.keymap.set('n', '<leader>w', '<C-w>')
 vim.keymap.set('n','<leader>k',':!make<CR>')
 vim.keymap.set({ "n", "v" }, "cy", [["+y]])
@@ -83,7 +106,6 @@ local function tab_complete()
     -- trigger lsp code completion
     return '<C-x><C-o>'
   end
-
   -- suggest words in current buffer
   return '<C-x><C-n>'
 end

@@ -16,13 +16,12 @@ local function setup_autoformat(event)
       timeout_ms = 10000,
     })
   end
-
-  vim.api.nvim_create_autocmd('BufWritePre', {
+--[[  vim.api.nvim_create_autocmd('BufWritePre', {
     buffer = event.buf,
     group = fmt_group,
     desc = 'Format current buffer',
     callback = buf_format,
-  })
+  }) ]]--
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
