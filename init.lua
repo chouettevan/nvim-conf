@@ -44,6 +44,8 @@ require("lazy").setup({
     "williamboman/mason.nvim",
   },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "mfussenegger/nvim-jdtls" },
+  { "neovim/nvim-lspconfig" },
 })
 require('mason').setup()
 require('catppuccin').setup({transparent_background=true})
@@ -51,6 +53,29 @@ vim.cmd("colorscheme catppuccin")
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.cmd("so ~/.config/nvim/config/init.lua")
+--vim.lsp.enable('clangd')
+vim.lsp.config('jdtls',{cmd = {'jdtls'}})
+vim.lsp.enable('jdtls')
+vim.lsp.config('clangd',{})
+vim.lsp.enable('clangd')
+vim.lsp.config('gopls',{})
+vim.lsp.enable('gopls')
+vim.lsp.config('pyright',{})
+vim.lsp.enable('pyright')
+vim.lsp.config('bashls',{})
+vim.lsp.enable('bashls')
+vim.lsp.config('rust_analyzer', {
+    settings = {
+      ['rust-analyzer'] = {
+        diagnostics = {
+          enable = true;
+        }
+      }
+    }
+  })
+vim.lsp.enable('rust-analyzer')
+
+
 
 vim.keymap.set('n', '<leader>x', ':!chmod +x % <CR>')
 vim.keymap.set('n', '<leader>s', ':terminal ./% <CR>')
@@ -74,9 +99,9 @@ vim.opt.incsearch = true
 vim.opt.nu = true
 vim.opt.rnu = true
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
 vim.opt.guicursor = "a:ver5i"
